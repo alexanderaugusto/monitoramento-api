@@ -1,5 +1,6 @@
 const mqtt = require('mqtt')
 const client = mqtt.connect('mqtt://test.mosquitto.org')
+const Vagas = require('../models/Vagas')
 
 exports.setup = () => {
   client.on('connect', () => {
@@ -10,8 +11,14 @@ exports.setup = () => {
     })
   })
 
-  client.on('message', (topic, message) => {
-    console.log(message.toString())
+  client.on('message', async (topic, message) => {
+    const payload = JSON.parse(message.toString())
+
+    const vaga = await Vagas.findOne({ _id: payload._id })
+
+    vaga.status = payload.status
+
+    await vaga.save()
   })
 }
 
