@@ -1,6 +1,7 @@
 const mqtt = require('mqtt')
 const client = mqtt.connect('mqtt://test.mosquitto.org')
 const Vagas = require('../models/Vagas')
+const socketio = require('./socketio')
 
 exports.setup = () => {
   client.on('connect', () => {
@@ -19,6 +20,8 @@ exports.setup = () => {
     vaga.status = payload.status
 
     await vaga.save()
+
+    socketio.io.emit('ATUALIZAR_VAGA', JSON.stringify(vaga))
   })
 }
 
