@@ -3,7 +3,7 @@ const socketio = require('socket.io')
 let io = null
 
 exports.setup = (server) => {
-  const io = socketio(server, {
+  io = socketio(server, {
     cors: {
       origin: '*'
     }
@@ -18,4 +18,4 @@ exports.setup = (server) => {
   })
 }
 
-exports.io = io
+exports.io = () => io

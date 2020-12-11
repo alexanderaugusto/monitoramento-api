@@ -21,7 +21,7 @@ exports.setup = () => {
 
     await vaga.save()
 
-    socketio.io.emit('ATUALIZAR_VAGA', JSON.stringify(vaga))
+    socketio.io().emit('ATUALIZAR_VAGA', JSON.stringify(vaga))
   })
 }
 
