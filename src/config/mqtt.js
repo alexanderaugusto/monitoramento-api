@@ -15,11 +15,7 @@ exports.setup = () => {
   client.on('message', async (topic, message) => {
     const payload = JSON.parse(message.toString())
 
-    const vaga = await Vagas.findOne({ _id: payload._id })
-
-    vaga.status = payload.status
-
-    await vaga.save()
+    await Vagas.updateOne({ _id: payload._id }, { status: payload.status })
 
     socketio.io().emit('ATUALIZAR_VAGA', JSON.stringify(vaga))
   })
