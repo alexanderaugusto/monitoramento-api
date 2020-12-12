@@ -17,7 +17,7 @@ exports.setup = () => {
 
     await Vagas.updateOne({ _id: payload._id }, { status: payload.status })
 
-    socketio.io().emit('ATUALIZAR_VAGA', JSON.stringify(vaga))
+    socketio.io().emit('ATUALIZAR_VAGA', JSON.stringify(payload))
   })
 }
 
